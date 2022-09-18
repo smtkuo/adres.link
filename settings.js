@@ -3,7 +3,7 @@ module.exports = function(options={}) {
         meta:{title:"ADRESLINK",description:"Adres Ara Bul"},
         data:{
             env: process.env,
-            options: options
-        }
+        },
+        p:options
     }
 }

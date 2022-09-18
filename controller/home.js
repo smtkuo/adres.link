@@ -1,16 +1,24 @@
 module.exports = function (options = {}) {
-    this.get = function(options={}){
-            try {
-                const bilgisam = require('bilgisam-projects')
-                var methods = new bilgisam()
-                var bilgisamAdresLink = methods.get({
-                    project: "./Projects/AdresLink/controller/home"
-                })
-                var bilgisamAdresLink_methods = new bilgisamAdresLink();
-                return bilgisamAdresLink_methods.get(options)
-            } catch (e) {
-                return e.message;
-            }
+    this.get = async function(options={}){
+        try {
+            const bilgisam = require('bilgisam-projects')
+            var methods = new bilgisam()
+            var bilgisamAdresLink = methods.get({
+                project: "./Projects/AdresLink/controller/home"
+            })
+            var bilgisamAdresLink_methods = new bilgisamAdresLink();
+            var results = {}
+            
+            options['return'] = "resultsHtmlScript"
+            results['resultsHtmlScript'] = await bilgisamAdresLink_methods.get(options)
+            console.log(results['resultsHtmlScript']);
+            
+            
+            return results;
+        } catch (e) {
+            console.log(e.message)
+            return {error: e.message}
+        }
     }
 
     this.set = function(options={}){
@@ -21,9 +29,9 @@ module.exports = function (options = {}) {
                 project: "./Projects/AdresLink/controller/home"
             })
             var bilgisamAdresLink_methods = new bilgisamAdresLink();
-            return bilgisamAdresLink_methods.get(options)
+            return bilgisamAdresLink_methods.set(options)
         } catch (e) {
-            return e.message;
+            return {error: e.message}
         }
     }
 }

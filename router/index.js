@@ -1,7 +1,7 @@
-exports.home =  function(req, res){
+exports.home =  async function(req, res){
     var controller = require('../controller/home');
     var methods = new controller();
-    var data = methods.get({req:req,res:res});
+    var data = await methods.get({req:req,res:res});
     var settings = require('../settings');
     var settingsMethods = new settings({controller:data});
 
@@ -13,14 +13,14 @@ exports.home =  function(req, res){
         }
     })
 };
-exports.search =  function(req, res){
-    var controller = require('../controller/home');
+exports.search =  async function(req, res){
+    var controller = require('../controller/search');
     var methods = new controller();
-    var data = methods.get({req:req,res:res});
+    var data = await methods.get({req:req,res:res});
     var settings = require('../settings');
     var settingsMethods = new settings({controller:data});
 
-    res.render('./pages/index', settingsMethods.get, (err, html) => {
+    res.render('./pages/search', settingsMethods.get, (err, html) => {
         if(err) {
             res.status(500).send('')
         } else {
