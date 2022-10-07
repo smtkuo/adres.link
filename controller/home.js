@@ -6,13 +6,14 @@ module.exports = function (options = {}) {
             var bilgisamAdresLink = methods.get({
                 project: "./Projects/AdresLink/controller/home"
             })
-            var bilgisamAdresLink_methods = new bilgisamAdresLink();
+            var mapScript = methods.get({
+                project: "./Projects/AdresLink/helpers/mapScript"
+            })
+
             var results = {}
             
-            options['return'] = "resultsHtmlScript"
-            results['resultsHtmlScript'] = await bilgisamAdresLink_methods.get(options)
-            console.log(results['resultsHtmlScript']);
-            
+            options['return'] = "script"
+            results['map_script'] = await (new mapScript()).get({return : 'script'})
             
             return results;
         } catch (e) {

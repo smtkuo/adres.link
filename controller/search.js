@@ -9,20 +9,22 @@ module.exports = function (options = {}) {
                 var bilgisamAdresLink_methods = new bilgisamAdresLink();
                 var results = {}
                 // get
-                results['get'] = await bilgisamAdresLink_methods.get(options)
+                results['get'] = await (new bilgisamAdresLink()).get(options)
                 // results
                 options['return'] = "results"
-                results['results'] = await bilgisamAdresLink_methods.get(options)
+                results['results'] = await (new bilgisamAdresLink()).get(options)
 
                 if(results['results']["data"] != null){
                     options['return'] = "resultsHtml"
                     options['resultData'] = results['results']["data"]
-                    results['resultsHtml'] = await bilgisamAdresLink_methods.get(options)
+                    results['resultsHtml'] = await (new bilgisamAdresLink()).get(options)
                 }
-                console.log(results['resultsHtml'])
                 
-                options['return'] = "resultsHtmlScript"
-                results['resultsHtmlScript'] = await bilgisamAdresLink_methods.get(options)
+                // GET MAP SCRIPT
+                var mapScript = methods.get({
+                    project: "./Projects/AdresLink/helpers/mapScript"
+                })
+                results['map_script'] = await (new mapScript()).get({return : 'script'})
                 
                 
                 return results
